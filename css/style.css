@@ -14,16 +14,33 @@ html {
 }
 
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Arial', sans-serif; /* Considerar una fuente más moderna o alojada localmente si es específica */
     line-height: 1.6;
     color: var(--text-dark);
+    padding-top: 70px; /* Ajuste para fixed-top navbar, el valor exacto puede depender de la altura de tu navbar */
+}
+
+/* Clase para ocultar visualmente pero mantener accesible para lectores de pantalla */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
 }
 
 /* Navbar */
 .navbar {
-    background-color: rgba(26, 26, 26, 0.9);
-    transition: var(--transition-speed);
+    background-color: rgba(26, 26, 26, 0.7); /* Opacidad inicial ligeramente menor */
+    transition: background-color var(--transition-speed) ease-in-out; /* Transición más específica */
     padding: 1rem 0;
+}
+
+.navbar.scrolled { /* Nueva clase para navbar con scroll */
+    background-color: rgba(26, 26, 26, 0.95);
 }
 
 .navbar-brand {
@@ -33,7 +50,8 @@ body {
 
 .nav-link {
     position: relative;
-    padding: 0.5rem 1rem !important;
+    padding: 0.5rem 1rem !important; /* Considerar si !important es realmente necesario */
+    color: var(--text-light); /* Asegurar color de texto claro para navbar oscura */
 }
 
 .nav-link::after {
@@ -48,7 +66,8 @@ body {
     transform: translateX(-50%);
 }
 
-.nav-link:hover::after {
+.nav-link:hover::after,
+.nav-link.active::after { /* Estilo para el link activo */
     width: 80%;
 }
 
@@ -56,7 +75,7 @@ body {
 .social-links {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 10px; /* Espaciado entre íconos */
 }
 
 .social-links a {
@@ -67,31 +86,26 @@ body {
     height: 35px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.1);
-    color: var(--text-light) !important;
+    color: var(--text-light) !important; /* !important podría ser evitado con mayor especificidad */
     font-size: 1rem;
     transition: all var(--transition-speed);
     text-decoration: none;
 }
 
-.social-links a:hover {
+.social-links a:hover,
+.social-links a:focus { /* Añadir estado de foco para accesibilidad */
     transform: translateY(-3px);
+    outline: 2px solid var(--accent-color); /* Mejor visibilidad del foco */
+    outline-offset: 2px;
 }
 
-.social-links a.facebook:hover {
-    background: #3b5998;
-}
-
-.social-links a.instagram:hover {
-    background: #e1306c;
-}
-
-.social-links a.whatsapp:hover {
-    background: #25d366;
-}
+.social-links a.facebook:hover { background: #3b5998; }
+.social-links a.instagram:hover { background: #e1306c; }
+.social-links a.whatsapp:hover { background: #25d366; }
 
 /* Navbar social links específicos */
 .navbar .social-links {
-    margin-right: 1rem;
+    margin-right: 1rem; /* Tal como estaba */
 }
 
 .navbar .social-links a {
@@ -102,9 +116,9 @@ body {
 }
 
 /* Footer social links específicos */
-.footer .social-links {
-    justify-content: flex-end;
-    margin-top: 1rem;
+.footer .social-links { /* Estaba .footer .social-links */
+    justify-content: flex-end; /* Mantener alineación original */
+    margin-top: 0; /* Ajustado para alinear mejor con el texto en el footer */
 }
 
 .footer .social-links a {
@@ -113,18 +127,22 @@ body {
     font-size: 1.1rem;
 }
 
+
 /* Secciones */
 .section-padding {
-    padding: 100px 0;
+    padding: 80px 0; /* Ligeramente reducido el padding */
 }
 
 /* Hero Section con Parallax */
 .hero-section {
-    height: 100vh;
+    min-height: 100vh; /* Usar min-height para asegurar que cubra la pantalla pero pueda crecer */
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-                url('../images/hero-bg.png') center/cover no-repeat fixed;
+                url('../images/hero-bg.png') center/cover no-repeat; /* Removido 'fixed' para control con JS */
     position: relative;
-    overflow: hidden;
+    overflow: hidden; /* Tal como estaba */
+    display: flex; /* Para centrar contenido si es necesario */
+    align-items: center; /* Para centrar contenido */
+    justify-content: center; /* Para centrar contenido */
 }
 
 /* Tarjetas de servicios */
@@ -133,12 +151,13 @@ body {
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: transform var(--transition-speed);
-    height: 100%;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed); /* Añadido box-shadow a la transición */
+    height: 100%; /* Tal como estaba */
 }
 
 .service-card:hover {
     transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada al hover */
 }
 
 .service-card h3 {
@@ -149,7 +168,7 @@ body {
 /* Sección de galería con Parallax */
 #galeria {
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-                url('../images/gallery-bg.png') center/cover no-repeat fixed;
+                url('../images/gallery-bg.png') center/cover no-repeat; /* Removido 'fixed' para control con JS */
 }
 
 /* Galería de imágenes */
@@ -158,7 +177,8 @@ body {
     cursor: pointer;
     overflow: hidden;
     border-radius: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 20px; /* Tal como estaba */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra sutil */
 }
 
 .trabajo-card img {
@@ -166,13 +186,14 @@ body {
     width: 100%;
     height: 300px;
     object-fit: cover;
+    display: block; /* Para remover posible espacio extra debajo de la imagen */
 }
 
 .trabajo-card:hover img {
     transform: scale(1.05);
 }
 
-.trabajo-overlay {
+.trabajo-card .trabajo-overlay { /* Incrementada especificidad por si acaso */
     position: absolute;
     bottom: 0;
     left: 0;
@@ -182,10 +203,14 @@ body {
     padding: 1rem;
     transform: translateY(100%);
     transition: transform var(--transition-speed);
+    opacity: 0; /* Añadido para un fade-in más suave */
+    visibility: hidden; /* Para mejorar accesibilidad y performance */
 }
 
 .trabajo-card:hover .trabajo-overlay {
     transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
 }
 
 /* Modal de imagen */
@@ -197,36 +222,47 @@ body {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.9);
-    z-index: 9999;
-    overflow: auto;
+    z-index: 1055; /* Bootstrap usa z-index altos para modales, ej: 1050 para modal, 1055 para modal-backdrop */
+    overflow: auto; /* Permitir scroll si el contenido es muy grande */
+    padding: 20px; /* Espacio por si la imagen es muy grande y se necesita scroll */
 }
 
 .imagen-modal-content {
     position: relative;
-    margin: auto;
-    padding: 20px;
-    width: 90%;
-    max-width: 1200px;
-    height: 90vh;
+    margin: auto; /* Centrado horizontal */
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 90%;
+    max-width: 1000px; /* Límite para que no sea excesivamente ancho en pantallas grandes */
+    height: 100%; /* Para que el flex centering vertical funcione */
 }
 
 .imagen-modal img {
     max-width: 100%;
-    max-height: 90vh;
+    max-height: calc(100vh - 80px); /* Altura máxima considerando padding/botones */
     object-fit: contain;
+    border-radius: 5px; /* Un toque estético */
 }
 
 .imagen-modal-close {
     position: absolute;
-    top: 15px;
-    right: 35px;
+    top: 20px; /* Ajustado para mejor visibilidad y evitar colisión con bordes */
+    right: 30px;
     color: #f1f1f1;
     font-size: 40px;
     font-weight: bold;
     cursor: pointer;
+    z-index: 1056; /* Encima del contenido del modal */
+    line-height: 1; /* Para un mejor control del posicionamiento */
+    transition: color var(--transition-speed);
+}
+
+.imagen-modal-close:hover,
+.imagen-modal-close:focus {
+    color: var(--accent-color);
+    text-decoration: none;
+    outline: none; /* Ya tiene cursor pointer y cambio de color */
 }
 
 /* Formulario de contacto */
@@ -234,7 +270,7 @@ body {
     padding: 0.8rem;
     border: 1px solid #ddd;
     border-radius: 5px;
-    transition: var(--transition-speed);
+    transition: border-color var(--transition-speed), box-shadow var(--transition-speed); /* Transiciones específicas */
 }
 
 .form-control:focus {
@@ -244,20 +280,33 @@ body {
 
 .btn-primary {
     background-color: var(--accent-color);
-    border: none;
+    border: none; /* Ya estaba */
     padding: 0.8rem 2rem;
-    transition: var(--transition-speed);
+    transition: background-color var(--transition-speed), transform var(--transition-speed); /* Transiciones específicas */
 }
 
 .btn-primary:hover {
-    background-color: #2980b9;
+    background-color: #2980b9; /* Un color ligeramente más oscuro */
     transform: translateY(-2px);
+}
+
+#formFeedback .alert {
+    margin-top: 1rem;
 }
 
 /* Footer */
 .footer {
-    background-color: var(--primary-color);
+    background-color: var(--primary-color); /* Ya estaba */
+    color: var(--text-light); /* Asegurar que el texto sea claro */
 }
+.footer h5 {
+    color: var(--text-light);
+}
+.footer p {
+    color: #ccc; /* Un gris claro para el texto secundario del footer */
+    margin-bottom: 0.5rem;
+}
+
 
 /* Animaciones y efectos */
 .fade-in {
@@ -272,29 +321,42 @@ body {
 }
 
 /* Media Queries */
+@media (max-width: 991.98px) { /* Bootstrap LG breakpoint */
+    body {
+        padding-top: 0; /* Remover padding-top si navbar no es siempre fixed o cambia altura */
+    }
+    .navbar .social-links {
+        margin: 1rem 0; /* Tal como estaba */
+        justify-content: center; /* Centrar en móvil */
+    }
+}
+
 @media (max-width: 768px) {
     .section-padding {
         padding: 60px 0;
     }
     
     .hero-section {
-        height: 80vh;
+        min-height: 80vh; /* Ajuste para móviles */
     }
     
     .service-card {
-        margin-bottom: 1rem;
+        margin-bottom: 1.5rem; /* Un poco más de espacio */
     }
 
-    .social-links {
-        justify-content: center;
-        margin-top: 1rem;
-    }
-
-    .navbar .social-links {
-        margin: 1rem 0;
-    }
+    /* Ya cubierto por el media query anterior para .navbar .social-links */
 
     .footer .social-links {
-        justify-content: center;
+        justify-content: center; /* Centrar en el footer en móvil */
+        margin-top: 1rem; /* Espacio sobre los íconos */
+    }
+    .footer .text-md-end { /* Centrar texto en el footer en móvil */
+        text-align: center !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-section h1 {
+        font-size: 2.5rem; /* Ajustar tamaño de fuente del hero */
     }
 }
